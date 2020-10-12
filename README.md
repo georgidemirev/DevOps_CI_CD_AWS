@@ -1,2 +1,4 @@
-# DevOps_CI_CD_AWS
+# DevOps CI/CD AWS
+
+
 CI/CD pipeline with AWS EC2

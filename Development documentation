@@ -1,0 +1,55 @@
+Microservice development architecture
+
+Microservices
+-The business services
+-Consul (hashiCorp) for service registry
+-Vault (hashiCorp) for storing configurations and passwords
+-Message broker for Microservice communication 
+-Nginx for request gateway broker
+-ConfigService (SpringBoot solution) for configurations of the microservices
+-Grafana for emailing errors
+-Kibana and elastic stack for logging
+
+Docker Swarm Nodes?
+
+Repositories
+// The configuration repository have one branch for each environment
+// Environments: dev1, dev2, qa1, qa2, staging, pilot, PROD
+•	for custom images with Dockerfiles 
+•	for Jenkins deploy file and compose files for different environment
+o	Jenkins.deploy file
+o	Compose files for all the services (yml files)
+	Each file is creating its own dependent services in an isolated network in the environment
+•	For each service (microservice, api) 
+
+Jenkins – CI/CD tool
+•	Has integrated SonarQube (with plugin, and in the jenkins deploy file, a stage is added with running the sonar)
+•	Has plugin for sending messages when a particular job is running (to Teams, Mattermost .. )
+•	Each job is configured to look at some repo and execute some deploy file
+// for example: one microservice has Jenkins.deploy file in the folder of the project and Jenkins is looking for that file to build the image, running the sonar, the test, the maven stages and whatever more is needed-( might be sending messages with the build status)
+Jenkins jobs
+•	For each service, we have
+o	Build job for the pull requests, running after each commit in pull request
+o	Build job to dev env (automated every 15 mins to look for new merged code in dev branch)
+o	Build job where you can chose which old version to build 
+-	These jobs are connected to different branches for the respective versions
+o	Deploy job for each env, that runs the Jenkins deploy file from the docker-stack repo
+
+// when we do a PR, the job is starting automatically and building the jar and executing the Sonar
+// when we merge, deploy job is being started to deploy the service on Dev environment
+
+Servers and environments
+•	Prod environment is located in an isolated server
+•	All other environments are deployed on one server
+
+Other outsource resources – SAP 
+•	Communication with rest and soap
+
+Management
+Communication
+•	Outlook connected to teams and other services
+•	The office conference rooms are being booked via the mail
+•	Mail is creating the meetings and inviting everyone
+
+Documentation
+// one big document with pages and sections
